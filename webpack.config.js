@@ -1,9 +1,29 @@
+const fs = require('fs');
 const path = require('path');
+const webpack = require('webpack');
+const webpackMultiEntryResolve = require('webpack-multi-entry-resolve');
+const root = path.resolve(__dirname);
 
-module.exports = {
-    entry: './src/index.js',
+const webpackConfig = {
+    entry: {},
     output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist')
-    }
+        path: path.join(root, 'dist'),
+        publicPath: '',
+        filename: 'js/[name].js',
+        chunkFilename: 'js/chunk/[id].chunk.js'
+    },
+    module: {
+        rules: [
+            { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
+        ]
+    },
+    plugins: []
 };
+
+webpackMultiEntryResolve(webpackConfig, {
+    root: root,
+    path: path.join(root, 'src'),
+    globs: '**/*.js'
+});
+
+module.exports = webpackConfig;
