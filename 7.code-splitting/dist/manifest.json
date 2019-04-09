@@ -1,0 +1,6 @@
+{
+  "common.js": "common.bundle.js",
+  "another.js": "another.bundle.js",
+  "app.js": "app.bundle.js",
+  "index.html": "index.html"
+}
